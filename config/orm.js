@@ -1,22 +1,37 @@
 const connection = require('./connection');
 
-
+class Book {
+    selectAll() {
+      return orm.selectAll()
+    }
+    selectOne(bookName) {
+        return orm.selectOne(bookName)
+      }
+    create(title, coverPhoto, authorId) {
+      return orm.create("books", columns, values)
+    }
+  };
 class orm { 
   constructor(connection){
     this.connection = connection;
   }
 
-  getAllBooks(){
+  select(){
+    // returns a promise so that when it's called we can use .then() and .catch()
+   return this.connection.query('SELECT' + column + 'FROM' + table + 'INNER JOIN books ON authors.id = books.authorId')
+  }
+
+  selectAll(){
     // returns a promise so that when it's called we can use .then() and .catch()
    return this.connection.query('SELECT firstName, lastName, title, coverPhoto FROM authors INNER JOIN books ON authors.id = books.authorId')
   }
 
-  getOneBook(condition){
-    return this.connection.query('SELECT books.id, firstName, lastName, title, coverPhoto FROM authors INNER JOIN books ON authors.id = books.authorId WHERE' + condition )
+  getOneBook(bookTitle){
+    return this.connection.query('SELECT books.id, firstName, lastName, title, coverPhoto FROM authors INNER JOIN books ON authors.id = books.authorId WHERE books.title=' + bookTitle )
   }
 
   getBookNotes(bookTitle){
-   return this.connection.query('SELECT notes.id, note FROM notes INNER JOIN books ON books.id = notes.bookId WHERE books.title=?', [bookTitle])
+   return this.connection.query('SELECT notes.id, note FROM notes INNER JOIN books ON books.id = notes.bookId WHERE books.title=' + bookTitle)
   }
 
   addBook(title, coverPhoto, authorId){
