@@ -1,7 +1,8 @@
-
-
+const book = require("../models/book.js")
 // api get call returning all books
-// should use a cat.read() call
+
+module.exports = (app) => {
+
 
   // get all books
   app.get('/api/books', (req, res) => {
@@ -25,3 +26,6 @@
     .then(() => res.status(200).json(true))
     .catch(error => res.status(500).json(error))
   });
+
+
+}

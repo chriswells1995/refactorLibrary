@@ -32,7 +32,15 @@ INSERT INTO books (title, authorId, coverPhoto) VALUES ("Harry Potter and the So
 
 INSERT INTO books (title, authorId, coverPhoto) VALUES ('Harry Potter and the Chamber of Secrets', 1, 'https://m.media-amazon.com/images/I/51OZerWcGCL.jpg');
 
+INSERT INTO notes (note, bookId) VALUES ("The first one", 1);
+
 SELECT firstName, lastName, title 
 FROM authors
 INNER JOIN books
-ON authors.id = books.authorId
+ON authors.id = books.authorId;
+
+SELECT title, note
+FROM books
+INNER JOIN notes
+ON books.id = notes.bookId;
+

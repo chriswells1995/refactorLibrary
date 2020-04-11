@@ -5,7 +5,7 @@ const orm = require("../config/orm.js")
     selectNoteByBook(bookTitle) {
       return orm.getBookNotes(bookTitle)
     }
-    create(note, bookId) {
+    make(note, bookId) {
       return orm.addBookNote("notes", note, bookId)
     }
   

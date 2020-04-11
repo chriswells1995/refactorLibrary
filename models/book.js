@@ -1,13 +1,16 @@
 
+const orm = require("../config/orm.js");
 
 class Book {
     selectAll() {
-      return orm.selectAll("cats")
+      return orm.selectAll()
     }
     selectOne(bookName) {
-        return orm.selectOne("cats")
+        return orm.getOneBook(bookName)
       }
     create(title, coverPhoto, authorId) {
-      return orm.create("cats", columns, values)
+      return orm.addBook(title, coverPhoto, authorId)
     }
   };
+
+  module.exports= new Book();

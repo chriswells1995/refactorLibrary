@@ -1,25 +1,12 @@
 const connection = require('./connection');
 
-class Book {
-    selectAll() {
-      return orm.selectAll()
-    }
-    selectOne(bookName) {
-        return orm.selectOne(bookName)
-      }
-    create(title, coverPhoto, authorId) {
-      return orm.create("books", columns, values)
-    }
-  };
+
 class orm { 
   constructor(connection){
     this.connection = connection;
   }
 
-  select(){
-    // returns a promise so that when it's called we can use .then() and .catch()
-   return this.connection.query('SELECT' + column + 'FROM' + table + 'INNER JOIN books ON authors.id = books.authorId')
-  }
+
 
   selectAll(){
     // returns a promise so that when it's called we can use .then() and .catch()
@@ -29,20 +16,23 @@ class orm {
   getOneBook(bookTitle){
     return this.connection.query('SELECT books.id, firstName, lastName, title, coverPhoto FROM authors INNER JOIN books ON authors.id = books.authorId WHERE books.title=' + bookTitle )
   }
-
-  getBookNotes(bookTitle){
-   return this.connection.query('SELECT notes.id, note FROM notes INNER JOIN books ON books.id = notes.bookId WHERE books.title=' + bookTitle)
-  }
-
   addBook(title, coverPhoto, authorId){
    return this.connection.query('INSERT INTO books SET ?', 
      {
        title,
-       authorId,
-       coverPhoto
+       coverPhoto,
+       authorId
+       
      })
   }
+//   good
+  getBookNotes(bookTitle){
+   return this.connection.query('SELECT notes.id, note FROM notes INNER JOIN books ON books.id = notes.bookId WHERE books.title=' + bookTitle)
+  }
 
+
+
+//   good
   addBookNote(note, bookId){
     return this.connection.query('INSERT INTO notes SET ?', 
      {
@@ -50,11 +40,11 @@ class orm {
        bookId
      })
   }
-
+//   good
   deleteNote(noteId){
    return this.connection.query('DELETE FROM notes WHERE id=?', 
      [noteId])
   }
 }
 
-module.exports = new DB(connection);
+module.exports = new orm(connection);
